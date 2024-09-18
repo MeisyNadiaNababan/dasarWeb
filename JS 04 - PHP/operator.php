@@ -18,6 +18,8 @@ $hasilAnd = $a && $b;
 $hasilOr = $a || $b; 
 $hasilNotA = !$a;
 $hasilNotB = !$b;
+$hasilIdentik = $a === $b;
+$hasilTidakIdentik = $a !== $b;
 
 echo "Hasil penjumlahan {$a} + {$b} = {$hasilTambah} <br>";
 echo "Hasil pengurangan {$a} - {$b} = {$hasilKurang} <br>";
@@ -56,4 +58,9 @@ $a /= $b;
 echo "Setelah \$a /= \$b, \$a = {$a} <br>";
 $a %= $b;
 echo "Setelah \$a %= \$b, \$a = {$a} <br>";
+
+echo "<br>";
+
+echo "Apakah \$a identik dengan \$b? " . ($hasilIdentik ? 'Ya' : 'Tidak') . "<br>";
+echo "Apakah \$a tidak identik dengan \$b? " . ($hasilTidakIdentik ? 'Ya' : 'Tidak') . "<br>";
 ?>
