@@ -43,4 +43,17 @@ echo "\$a AND \$b : " . ($hasilAnd ? 'True' : 'False') . "<br>";
 echo "\$a OR \$b : " . ($hasilOr ? 'True' : 'False') . "<br>";
 echo "NOT \$a : " . ($hasilNotA ? 'True' : 'False') . "<br>";
 echo "NOT \$b : " . ($hasilNotB ? 'True' : 'False') . "<br>";
+
+echo "<br>";
+
+$a += $b; 
+echo "Setelah \$a += \$b, \$a = {$a} <br>";
+$a -= $b; 
+echo "Setelah \$a -= \$b, \$a = {$a} <br>";
+$a *= $b; 
+echo "Setelah \$a *= \$b, \$a = {$a} <br>";
+$a /= $b;
+echo "Setelah \$a /= \$b, \$a = {$a} <br>";
+$a %= $b;
+echo "Setelah \$a %= \$b, \$a = {$a} <br>";
 ?>
