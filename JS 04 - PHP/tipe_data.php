@@ -50,4 +50,8 @@ echo 'Nama Belakang: ' . $namaBelakang . '<br>';
 echo $namaLengkap;
 
 echo "<br><br>"; 
+
+$listMahasiswa = ["Wahid Abdullah", "Elmo Bachtiar", "Lendis Fabri"];
+echo $listMahasiswa[0];
+
 ?>
