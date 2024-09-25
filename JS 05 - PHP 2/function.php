@@ -13,5 +13,5 @@ echo "<hr>";
 $saya = "Elok";
 $ucapanSalam = "Selamat pagi";
 
-perkenalan($saya);
+perkenalan($saya, $ucapanSalam);
 ?>
