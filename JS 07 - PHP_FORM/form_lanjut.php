@@ -32,33 +32,26 @@
     </form>
 
     <?php
-    // Cek apakah form sudah disubmit
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Ambil dan sanitasi input
-        $selectedBuah = $_POST['buah'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $selectedBuah = $_POST['buah'];
 
-        // Mengambil warna favorit
-        if (isset($_POST['warna'])) {
-            $selectedWarna = $_POST['warna'];
-        } else {
-            $selectedWarna = [];
-        }
-
-        // Mengambil jenis kelamin
-        $selectedJenisKelamin = $_POST['jenis_kelamin'];
-
-        // Tampilkan hasil
-        echo "<h3>Hasil Pilihan Anda:</h3>";
-        echo "Anda memilih buah: " . htmlspecialchars($selectedBuah) . "<br>";
-
-        if (empty($selectedWarna)) {
-            echo "Anda tidak memilih warna favorit.<br>";
-        } else {
-            echo "Warna favorit Anda: " . htmlspecialchars(implode(", ", $selectedWarna)) . "<br>";
-        }
-
-        echo "Jenis kelamin Anda: " . htmlspecialchars($selectedJenisKelamin);
+    if (isset($_POST['warna'])) {
+        $selectedWarna = $_POST['warna'];
+    } else {
+        $selectedWarna = [];
     }
-    ?>
+    $selectedJenisKelamin = $_POST['jenis_kelamin'];
+    echo"<br>";
+    echo "Anda memilih buah: " . $selectedBuah . "<br>";
+
+    if (!empty($selectedWarna)) {
+        echo "Warna favorit Anda: " . implode(", ", $selectedWarna) . "<br>";
+    } else {
+        echo "Anda tidak memilih warna favorit.<br>";
+    }
+    
+    echo "Jenis kelamin Anda: " . $selectedJenisKelamin;
+}
+?>
 </body>
 </html>
