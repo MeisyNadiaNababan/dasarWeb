@@ -13,7 +13,7 @@
 
         <label for="email">Email:</label>
         <input type="text" id="email" name="email">
-        <span id="email-error" style="style: color: red;"></span><br><br>
+        <span id="email-error" style="color: red;"></span><br><br>
 
         <input type="submit" value="Submit">
     </form>
