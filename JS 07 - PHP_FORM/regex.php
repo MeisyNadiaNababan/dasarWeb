@@ -1,4 +1,5 @@
 <?php
+// Langkah 1: Cocokkan huruf kecil
 $pattern = '/[a-z]/'; // Cocokkan huruf kecil.
 $text = 'This is a Sample Text.';
 
@@ -9,6 +10,8 @@ if (preg_match($pattern, $text)) {
 }
 
 echo "<br>";
+
+// Langkah 2: Cocokkan digit
 $pattern = '/[0-9]+/'; // Cocokkan satu atau lebih digit.
 $text = 'There are 123 apples.';
 
@@ -19,6 +22,8 @@ if (preg_match($pattern, $text, $matches)) {
 }
 
 echo "<br>";
+
+// Langkah 3: Ganti kata 'apple' dengan 'banana'
 $pattern = '/apple/';
 $replacement = 'banana';
 $text = 'I like apple pie.';
@@ -26,11 +31,13 @@ $new_text = preg_replace($pattern, $replacement, $text);
 echo $new_text; // Output: "I like banana pie."
 
 echo "<br>";
-$pattern = '/go?d/'; // Cocokkan "god" atau "gd".
+
+// Langkah 4: Ubah pattern menjadi {n,m} (antara n sampai m kemunculan)
+$pattern = '/go{n,m}d/'; // Cocokkan "god" atau "good" (kemunculan 'o' antara 1 hingga 2 kali).
 $text = 'god is good.';
 
 if (preg_match($pattern, $text, $matches)) {
-    echo "Cocokkan: " . $matches[0]; // Output: "god"
+    echo "Cocokkan: " . $matches[0]; // Output: "god" atau "good"
 } else {
     echo "Tidak ada yang cocok!";
 }
