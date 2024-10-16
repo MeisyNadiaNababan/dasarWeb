@@ -1,25 +1,42 @@
 <?php
 if (isset($_FILES['file'])) {
     $errors = array();
-    $fileName = $_FILES['file']['name'];
-    $fileSize = $_FILES['file']['size'];
-    $fileTmp = $_FILES['file']['tmp_name'];
-    $fileType = $_FILES['file']['type'];
-    @$fileExt = strtolower(end(explode('.', $_FILES['file']['name'])));
-    $extensions = array("pdf", "doc", "docx", "txt");
+    $extensions = array("jpg", "jpeg", "png", "gif");
+    $maxFileSize = 2097152; // 2MB
+    $uploadDir = "uploads/";
 
-    if (!in_array($fileExt, $extensions)) {
-        $errors[] = "Ekstensi file yang diizinkan adalah PDF, DOC, DOCX, atau TXT.";
+    foreach ($_FILES['file']['tmp_name'] as $key => $tmpName) {
+        $fileName = $_FILES['file']['name'][$key];
+        $fileSize = $_FILES['file']['size'][$key];
+        $fileTmp = $_FILES['file']['tmp_name'][$key];
+        $fileType = $_FILES['file']['type'][$key];
+        $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        // Cek ekstensi file
+        if (!in_array($fileExt, $extensions)) {
+            $errors[] = "$fileName: Ekstensi file yang diizinkan hanya JPG, JPEG, PNG, atau GIF.";
+            continue;
+        }
+
+        // Cek ukuran file
+        if ($fileSize > $maxFileSize) {
+            $errors[] = "$fileName: Ukuran file tidak boleh lebih dari 2 MB.";
+            continue;
+        }
+
+        // Pindahkan file jika tidak ada error
+        if (empty($errors)) {
+            if (move_uploaded_file($fileTmp, $uploadDir . $fileName)) {
+                echo "$fileName berhasil diunggah.<br>";
+            } else {
+                echo "$fileName gagal diunggah.<br>";
+            }
+        }
     }
 
-    if ($fileSize > 2097152) {
-        $errors[] = "Ukuran file tidak boleh lebih dari 2 MB";
-    }
-
-    if (empty($errors)) {
-        move_uploaded_file($fileTmp, "documents/" . $fileName);
-        echo "File berhasil diunggah.";
-    } else {
-        echo implode("", $errors);
+    // Tampilkan error jika ada
+    if (!empty($errors)) {
+        echo implode("<br>", $errors);
     }
 }
+?>
