@@ -1,42 +1,44 @@
 <?php
-if (isset($_FILES['file'])) {
+if (isset($_FILES['files'])) {
     $errors = array();
-    $extensions = array("jpg", "jpeg", "png", "gif");
-    $maxFileSize = 2097152; // 2MB
-    $uploadDir = "uploads/";
+    $allowedExtensions = array("jpg", "jpeg", "png", "gif"); // Ekstensi gambar yang diizinkan
+    $maxFileSize = 2097152; // Batas ukuran file 2 MB
 
-    foreach ($_FILES['file']['tmp_name'] as $key => $tmpName) {
-        $fileName = $_FILES['file']['name'][$key];
-        $fileSize = $_FILES['file']['size'][$key];
-        $fileTmp = $_FILES['file']['tmp_name'][$key];
-        $fileType = $_FILES['file']['type'][$key];
-        $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    // Loop untuk setiap file yang diunggah
+    foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
+        $file_name = $_FILES['files']['name'][$key];
+        $file_size = $_FILES['files']['size'][$key];
+        $file_tmp = $_FILES['files']['tmp_name'][$key];
+        $file_type = $_FILES['files']['type'][$key];
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
         // Cek ekstensi file
-        if (!in_array($fileExt, $extensions)) {
-            $errors[] = "$fileName: Ekstensi file yang diizinkan hanya JPG, JPEG, PNG, atau GIF.";
+        if (!in_array($file_ext, $allowedExtensions)) {
+            $errors[] = "Ekstensi file yang diizinkan hanya JPG, JPEG, PNG, atau GIF: $file_name.";
             continue;
         }
 
         // Cek ukuran file
-        if ($fileSize > $maxFileSize) {
-            $errors[] = "$fileName: Ukuran file tidak boleh lebih dari 2 MB.";
+        if ($file_size > $maxFileSize) {
+            $errors[] = "Ukuran file $file_name tidak boleh lebih dari 2 MB.";
             continue;
         }
 
-        // Pindahkan file jika tidak ada error
+        // Jika tidak ada error, pindahkan file ke folder 'documents/'
         if (empty($errors)) {
-            if (move_uploaded_file($fileTmp, $uploadDir . $fileName)) {
-                echo "$fileName berhasil diunggah.<br>";
-            } else {
-                echo "$fileName gagal diunggah.<br>";
-            }
+            move_uploaded_file($file_tmp, "documents/" . $file_name);
+            echo "File $file_name berhasil diunggah.<br>";
         }
     }
 
-    // Tampilkan error jika ada
+    // Tampilkan semua error jika ada
     if (!empty($errors)) {
         echo implode("<br>", $errors);
     }
+} else {
+    echo "Tidak ada file yang diunggah.";
 }
+
+
+
 ?>
