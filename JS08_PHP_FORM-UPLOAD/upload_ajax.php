@@ -5,7 +5,7 @@ if (isset($_FILES['file'])) {
     $fileSize = $_FILES['file']['size'];
     $fileTmp = $_FILES['file']['tmp_name'];
     $fileType = $_FILES['file']['type'];
-    $fileExt = strtolower(end(explode('.', $_FILES['file']['name'])));
+    @$fileExt = strtolower(end(explode('.', $_FILES['file']['name'])));
     $extensions = array("pdf", "doc", "docx", "txt");
 
     if (!in_array($fileExt, $extensions)) {
