@@ -44,6 +44,8 @@ if ($aksi == 'tambah') {
     } else {
         echo "ID tidak valid.";
     }
+} else {
+    header("Location: idex.php");
 }
 
 mysqli_close($koneksi);
