@@ -7,6 +7,9 @@
 <body>
     <div class="container mt-4">
         <h2>Data Anggota</h2>
+        
+        <a href="tambah.php" class="btn btn-success mb-3">Tambah Anggota</a>
+
         <?php
         include('koneksi.php');
 
