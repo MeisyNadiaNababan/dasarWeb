@@ -31,6 +31,7 @@ include 'auth.php';
                             <label>Nama</label>
                             <input type="hidden" name="id" id="id">
                             <input type="text" name="nama" id="nama" class="form-control" required="true">
+                            <p class="text-danger" id="err_nama"></p>
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -38,6 +39,7 @@ include 'auth.php';
                             <label>Jenis Kelamin</label><br>
                             <input type="radio" name="jenis_kelamin" id="jkel1" value="L" required="true"> Laki-laki
                             <input type="radio" name="jenis_kelamin" id="jkel2" value="P"> Perempuan
+                            <p class="text-danger" id="err_jenis_kelamin"></p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +60,10 @@ include 'auth.php';
                 </div>
             </form>
             <hr>
-            <div class="data"></div>
+            <div class="data mt-4"></div>
+            <div class="text-center mt-4">
+                &copy; <?php echo date('Y'); ?> Copyright: <a href="https://google.com">Desain Dan Pemrograman Web</a>
+            </div>
         </div>
         <!-- jQuery and JavaScript dependencies -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -68,14 +73,55 @@ include 'auth.php';
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-            // Mengirimkan Token Keamanan
-            $.ajaxSetup({
-                headers: {
-                    'Csrf-Token': $('meta[name="csrf-token"]').attr('content')
+                // Mengirimkan Token Keamanan
+                $.ajaxSetup({
+                    headers: {
+                        'Csrf-Token': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $('.data').load("data.php");
+            });
+            $('#simpan').click(function(){
+                var data = $('.form-data').serialize();
+                var nama = document.getElementById("nama").value;
+                var alamat = document.getElementById("alamat").value;
+                var no_telp = document.getElementById("no_telp").value;
+                if (nama == "") {
+                    document.getElementById("err_nama").innerHTML = "Nama Harus Diisi";
+                } else {
+                    document.getElementById("err_nama").innerHTML = "";
+                }
+                if (alamat == "") {
+                    document.getElementById("err_alamat").innerHTML = "Alamat Harus Diisi";
+                } else {
+                    document.getElementById("err_alamat").innerHTML = "";
+                }
+                if (!document.getElementById("jkel1").checked && !document.getElementById("jkel2").checked) {
+                    document.getElementById("err_jenis_kelamin").innerHTML = "Jenis Kelamin Harus Dipilih";
+                } else {
+                    document.getElementById("err_jenis_kelamin").innerHTML = "";
+                }
+                if (no_telp == "") {
+                    document.getElementById("err_no_telp").innerHTML = "No Telepon Harus Diisi";
+                } else {
+                    document.getElementById("err_no_telp").innerHTML = "";
+                }
+                if (nama != "" && alamat != "" && (document.getElementById("jkel1").checked || document.getElementById("jkel2").checked) && no_telp != "") {
+                    $.ajax({
+                        type: 'POST',
+                        url: "form_Action.php",
+                        data: data,
+                        success: function() {
+                            $('.data').load("data.php");
+                            document.getElementById("id").value = "";
+                            document.getElementById("form-data").reset();
+                        },
+                        error: function(response) {
+                            console.log(response.responseText);
+                        }
+                    });
                 }
             });
-            $('.data').load("data.php");
-        });
         </script>
     </body>
 </html>
