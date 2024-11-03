@@ -13,12 +13,14 @@
 
     $id = $_GET['id'];
     $query = "SELECT * FROM anggota WHERE id = $id";
+
     $result = mysqli_query($koneksi, $query);
     $row = mysqli_fetch_assoc($result);
+
     mysqli_close($koneksi);
     ?>
 
-    <div class="container">
+    <div class="container mt-4">
         <h2>Edit Data Anggota</h2>
 
         <form action="proses.php?aksi=ubah" method="post">
@@ -30,7 +32,7 @@
             </div>
 
             <div class="form-group">
-                <label for="jenis_kelamin">Jenis Kelamin: </label>
+                <label for="jenis_kelamin">Jenis Kelamin:</label>
                 <div class="form-check">
                     <input type="radio" class="form-check-input" name="jenis_kelamin" value="L" id="laki" <?php if ($row['jenis_kelamin'] === 'L') echo 'checked'; ?> required>
                     <label class="form-check-label" for="laki">Laki-laki</label>
