@@ -17,7 +17,6 @@ if (!empty($_SESSION['username'])) {
         }
 
         header("Location: ./index.php?page=jabatan");
-        
     } elseif (!empty($_GET['anggota'])) {
         $username = antiinjection($koneksi, $_POST['username']);
         $password = antiinjection($koneksi, $_POST['password']);
