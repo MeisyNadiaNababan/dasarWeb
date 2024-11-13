@@ -7,15 +7,12 @@ class Car {
         $this->model = $model;
         $this->color = $color;
     }
-
     public function getModel() {
         return $this->model;
     }
-
     public function setColor($color) {
         $this->color = $color;
     }
-
     public function getColor() {
         return $this->color;
     }
