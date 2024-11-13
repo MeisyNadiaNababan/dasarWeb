@@ -1,11 +1,11 @@
 <?php
-// Koneksi ke database
+define('HOST', 'localhost'); // biasanya localhost
+define('USER', 'root');       // user default di XAMPP biasanya 'root'
+define('PASSWORD', '');       // tidak ada password
+define('DATABASE', 'prakwebdb'); // nama database
 
-define('HOST','localhost');
-define('USER','root');
-define('PASS','');
-define('DB1', 'prakwebdb');
+$db = mysqli_connect(HOST, USER, PASSWORD, DATABASE);
 
-//periksa koneksi
-$db1 = new mysqli(HOST,USER,PASS,DB1);
-?>
+if (!$db) {
+    die("Koneksi gagal: " . mysqli_connect_error());
+}

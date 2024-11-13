@@ -19,7 +19,8 @@ if ($aksi == 'tambah') {
 } elseif ($aksi == 'ubah') {
     if (isset($_POST['id'])) {
         $id = $_POST['id'];
-        $query = "UPDATE anggota SET nama='$nama', jenis_kelamin='$jenis_kelamin', alamat='$alamat', no_telp='$no_telp' WHERE id='$id'";
+
+        $query = "UPDATE anggota SET nama='$nama', jenis_kelamin='$jenis_kelamin', alamat='$alamat', no_telp='$no_telp' WHERE id =$id";
 
         if (mysqli_query($koneksi, $query)) {
             header("Location: index.php");
@@ -33,7 +34,8 @@ if ($aksi == 'tambah') {
 } elseif ($aksi == 'hapus') {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        $query = "DELETE FROM anggota WHERE id='$id'";
+
+        $query = "DELETE FROM anggota WHERE id=$id";
 
         if (mysqli_query($koneksi, $query)) {
             header("Location: index.php");
@@ -45,7 +47,7 @@ if ($aksi == 'tambah') {
         echo "ID tidak valid.";
     }
 } else {
-    header("Location: idex.php");
+    header("Location: index.php");
 }
 
 mysqli_close($koneksi);
