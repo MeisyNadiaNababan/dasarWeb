@@ -1,25 +1,38 @@
 <?php
-$username = 'root';
-$password = '';
-$database = 'dasar_web';
-try {
-    $db = new mysqli('localhost', $username, $password, $database);
-    if ($db->connect_error) {
-        die('Connection DB failed: ' . $db->connect_error);
-    }
-} catch (Exception $e) {
-    die($e->getMessage());
-}
+$use_driver = 'sqlsrv'; // mysql atau sqlsrv
 
-// Fungsi untuk mengambil data kategori
-function getKategori() {
-    global $db;
-    $query = "SELECT * FROM m_kategori ORDER BY kategori_nama ASC";
-    $result = $db->query($query);
-    $kategori = [];
-    while ($row = $result->fetch_assoc()) {
-        $kategori[] = $row;
+$host = 'localhost';
+$username = ''; // 'sa'
+$password = '';
+$database = 'master';
+
+$db;
+
+if ($use_driver == 'mysql') {
+    try {
+        $db = new mysqli($host, $username, $password, $database);
+
+        if ($db->connect_error) {
+            die('Connection DB failed: ' . $db->connect_error);
+        }
+    } catch (Exception $e) {
+        die($e->getMessage());
     }
-    return $kategori;
+} else if ($use_driver == 'sqlsrv') {
+    $credential = [
+        'Database' => $database,
+        'UID' => $username,
+        'PWD' => $password
+    ];
+
+    try {
+        $db = sqlsrv_connect($host, $credential);
+
+        if (!$db) {
+            $msg = sqlsrv_errors();
+            die($msg[0]['message']);
+        }
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
 }
-?>
