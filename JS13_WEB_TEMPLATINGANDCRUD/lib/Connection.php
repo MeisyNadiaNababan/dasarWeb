@@ -1,7 +1,7 @@
 <?php
 $use_driver = 'sqlsrv'; // mysql atau sqlsrv
 
-$host = 'localhost';
+$host = 'LAPTOP-I1TEAASG';
 $username = ''; // 'sa'
 $password = '';
 $database = 'master';
